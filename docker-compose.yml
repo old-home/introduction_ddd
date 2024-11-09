@@ -1,0 +1,31 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./Docker/web/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - "db"
+    networks:
+      - introduction-ddd-network
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    networks:
+      - introduction-ddd-network
+  test:
+    build:
+      context: .
+      dockerfile: ./Docker/test/Dockerfile
+    depends_on:
+      - "db"
+    networks:
+      - introduction-ddd-network
+    profiles: [test]
+networks:
+  introduction-ddd-network:
+    driver: bridge
