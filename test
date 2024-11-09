@@ -1,0 +1,3 @@
+#!/usr/bin/env
+
+docker compose run test dotnet test --filter="Category=$0"
